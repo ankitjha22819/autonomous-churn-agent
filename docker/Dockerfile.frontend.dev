@@ -1,0 +1,26 @@
+
+# Churn Agent Frontend - Development Dockerfile
+
+# Single-stage build for development with hot reload
+
+
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm install
+
+# Copy application code
+COPY frontend/ .
+
+# Set environment
+ENV NODE_ENV=development
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Expose port
+EXPOSE 3000
+
+# Run development server
+CMD ["npm", "run", "dev"]

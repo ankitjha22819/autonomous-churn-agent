@@ -1,18 +1,7 @@
 "use client";
 
 import { RefObject } from "react";
-
-export type StreamStatus = "idle" | "streaming" | "done" | "error";
-export type EventType = "thinking" | "tool_call" | "insight" | "action" | "final";
-
-export interface FeedEvent {
-  id: string;
-  type: EventType;
-  agent?: string;
-  message: string;
-  risk?: "high" | "medium" | "low";
-  priority?: number;
-}
+import type { StreamStatus, FeedEvent } from "../stores/analysisStore";
 
 interface AgentActivityProps {
   status: StreamStatus;

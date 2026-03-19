@@ -1,55 +1,107 @@
-# ── Secrets ───────────────────────────────────────────────────────────────────
+
+# Python
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+
+# Virtual Environments
+
+.venv/
+venv/
+ENV/
+env/
+
+
+# Environment & Secrets (NEVER COMMIT)
+
 .env
 .env.local
 .env.*.local
-!.env.example
+*.pem
+*.key
+secrets/
 
-# ── Python ────────────────────────────────────────────────────────────────────
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
 
-# ── uv ────────────────────────────────────────────────────────────────────────
-.venv/
-.python-version
+# IDE & Editors
 
-# ── Testing & coverage ────────────────────────────────────────────────────────
-.pytest_cache/
-.coverage
-coverage.xml
-htmlcov/
-.ruff_cache/
-.mypy_cache/
-
-# ── Next.js ───────────────────────────────────────────────────────────────────
-node_modules/
-.next/
-out/
-.turbo/
-frontend/.env
-frontend/.env.local
-
-# ── OS ────────────────────────────────────────────────────────────────────────
-.DS_Store
-Thumbs.db
-
-# ── IDEs ──────────────────────────────────────────────────────────────────────
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
 
-# ── Docker ────────────────────────────────────────────────────────────────────
-docker/data/
 
-# ── Uploads / generated files ─────────────────────────────────────────────────
-backend/uploads/
-*.xlsx
-!scripts/fixtures/*.xlsx
+# Testing & Coverage
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+
+
+# Type Checking & Linting
+
+.mypy_cache/
+.ruff_cache/
+
+
+# Logs & Database
+
+*.log
+logs/
+*.db
+*.sqlite3
+
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+
+
+
+# Node.js & Frontend (Next.js)
+
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js Build Output
+frontend/.next/
+frontend/out/
+frontend/build/
+
+# Vercel/Deployment artifacts
+.vercel/
+
+# TypeScript cache
+*.tsbuildinfo
+
+
+# Docs
+INTERMEDIATEDOCS.md

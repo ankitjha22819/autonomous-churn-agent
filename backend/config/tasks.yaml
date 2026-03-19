@@ -1,0 +1,106 @@
+analyze_customer_data:
+  description: >
+    Analyze the provided customer engagement data to understand current
+    state and identify patterns. For each customer, examine:
+
+    1. Login patterns and recency
+    2. Feature adoption levels
+    3. Support interaction history
+    4. NPS and satisfaction indicators
+    5. Contract and billing status
+
+    Summarize key findings and flag any immediate concerns.
+
+    Customer data to analyze:
+    {customer_data}
+  expected_output: >
+    A structured analysis containing:
+    - Overall data quality assessment
+    - Summary statistics (total customers, averages, distributions)
+    - List of customers with concerning patterns
+    - Key engagement metrics by segment
+    - Data anomalies or gaps identified
+  agent: data_analyst
+
+calculate_risk_scores:
+  description: >
+    Using the data analysis from the previous task, calculate churn risk
+    scores for each customer. Apply the risk scoring model to evaluate:
+
+    1. Engagement risk factors (login recency, frequency)
+    2. Product adoption risk (feature usage, depth of use)
+    3. Support sentiment risk (ticket volume, resolution satisfaction)
+    4. Relationship health (NPS, CSM interactions)
+    5. Commercial risk (contract status, payment history)
+
+    Assign each customer a score from 0-100 and categorize into risk segments.
+
+    Data analysis results:
+    {context}
+  expected_output: >
+    A risk assessment containing:
+    - Individual customer scores with confidence levels
+    - Risk segmentation (critical, high, medium, low counts)
+    - Top 3 risk factors for each high-risk customer
+    - Overall portfolio risk distribution
+    - Comparison to healthy benchmarks
+  agent: risk_assessor
+  context:
+    - analyze_customer_data
+
+generate_retention_strategies:
+  description: >
+    Based on the risk assessment, develop targeted retention strategies.
+    For each risk segment, create appropriate intervention plans:
+
+    1. Critical risk (85+): Immediate executive intervention required
+    2. High risk (70-84): Urgent CSM outreach needed
+    3. Medium risk (40-69): Proactive engagement recommended
+    4. Low risk (<40): Standard nurture and monitoring
+
+    Provide specific, actionable recommendations that account for:
+    - Customer segment (enterprise vs SMB)
+    - Identified risk factors
+    - Historical intervention success rates
+    - Resource constraints
+
+    Risk assessment data:
+    {context}
+  expected_output: >
+    A retention playbook containing:
+    - Segment-specific intervention strategies
+    - Personalized recommendations for top 10 at-risk customers
+    - Resource requirements and timeline estimates
+    - Expected impact metrics (save rate, effort level)
+    - Quick wins vs. long-term initiatives
+  agent: strategy_expert
+  context:
+    - calculate_risk_scores
+
+compile_executive_report:
+  description: >
+    Synthesize all analysis results into an executive summary report.
+    The report should be suitable for senior leadership and include:
+
+    1. Executive Summary (key findings in 3-4 bullets)
+    2. Risk Overview (portfolio health, trend direction)
+    3. Critical Actions (what needs attention NOW)
+    4. Detailed Findings (supporting data and analysis)
+    5. Recommendations (prioritized action items)
+    6. Appendix (methodology, data sources)
+
+    All previous analysis:
+    {context}
+  expected_output: >
+    A comprehensive executive report with:
+    - One-paragraph executive summary
+    - Key metrics dashboard (total customers, at-risk %, MRR at risk)
+    - Top 5 prioritized recommendations with owners and deadlines
+    - Risk distribution visualization data
+    - Success metrics to track intervention effectiveness
+    - Clear next steps and follow-up timeline
+  agent: report_compiler
+  context:
+    - analyze_customer_data
+    - calculate_risk_scores
+    - generate_retention_strategies

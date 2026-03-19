@@ -1,24 +1,101 @@
 [project]
-name = "churn_agent"
+name = "churn-agent"
 version = "0.1.0"
-description = "latest-ai-development using crewAI"
-authors = [{ name = "Your Name", email = "you@example.com" }]
-requires-python = ">=3.10,<3.14"
+description = "Autonomous Churn Prediction Agent with CrewAI and FastAPI"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+keywords = ["ai", "crewai", "churn", "agents", "fastapi"]
+
 dependencies = [
-    "crewai[tools]==1.10.0"
+    # Web Framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "sse-starlette>=2.1.0",
+    
+    # AI/ML
+    "crewai>=0.114.0",
+    "crewai-tools>=0.25.0",
+    
+    # Configuration & Validation
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
+    "python-dotenv>=1.0.0",
+    
+    # Async & Background Tasks
+    "redis>=5.2.0",
+    "celery>=5.4.0",
+    
+    # Logging & Observability
+    "structlog>=24.4.0",
+    
+    # Database (async)
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    
+    # Utilities
+    "httpx>=0.28.0",
+    "pyyaml>=6.0.0",
+    "tenacity>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "httpx>=0.28.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "pre-commit>=4.0.0",
 ]
 
 [project.scripts]
-churn_agent = "churn_agent.main:run"
-run_crew = "churn_agent.main:run"
-train = "churn_agent.main:train"
-replay = "churn_agent.main:replay"
-test = "churn_agent.main:test"
-run_with_trigger = "churn_agent.main:run_with_trigger"
+churn-agent = "churn_agent.main:run"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.crewai]
-type = "crew"
+[tool.hatch.build.targets.wheel]
+packages = ["src/churn_agent"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+]
+ignore = ["E501", "B008", "B904"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["churn_agent"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

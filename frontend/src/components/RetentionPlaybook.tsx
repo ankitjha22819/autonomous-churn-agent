@@ -1,35 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-export interface RiskSignal {
-  label: string;
-  active: boolean;
-}
-
-export interface FinalPayload {
-  risk_score: number;
-  previous_risk_score: number;
-  days_to_renewal: number;
-  signals: RiskSignal[];
-  summary: string;
-  actions: {
-    priority: number;
-    action: string;
-    owner: string;
-    effort: string;
-    deadline: string;
-    impact: string;
-  }[];
-  client: {
-    contact_name: string;
-    contact_title: string;
-    company: string;
-    csm_name: string;
-    csm_title: string;
-  };
-  email_draft: string;
-}
+import type { FinalPayload } from "../stores/analysisStore";
 
 interface RetentionPlaybookProps {
   finalPayload: FinalPayload;
@@ -48,20 +20,6 @@ function RiskBadge({ score }: { score: number }) {
       className={`text-xs font-medium px-2.5 py-1 rounded-full border ${styles[level]}`}
     >
       {label[level]}
-    </span>
-  );
-}
-
-function Avatar({ name }: { name: string }) {
-  const initials = name
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-  return (
-    <span className="w-5 h-5 rounded-full bg-slate-200 text-slate-600 text-[10px] font-semibold flex items-center justify-center flex-shrink-0">
-      {initials}
     </span>
   );
 }
@@ -177,8 +135,8 @@ export default function RetentionPlaybook({
               active
             </p>
             <div className="space-y-1.5">
-              {finalPayload.signals.map((signal) => (
-                <div key={signal.label} className="flex items-center gap-2">
+              {finalPayload.signals.map((signal,index) => (
+                <div key={`${signal.label}${index}`} className="flex items-center gap-2">
                   <span
                     className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${signal.active ? "bg-red-400" : "bg-slate-200"}`}
                   />
